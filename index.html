@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta GHL Lead Matcher</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">Meta ↔ GHL / HighLevel</p>
+      <h1>Lead Matcher</h1>
+      <p class="subtitle">
+        Upload your Meta leads CSV and your GHL contacts CSV. This tool auto-detects name,
+        phone, and email fields, matches leads, and exports the ones that need manual checking.
+      </p>
+    </section>
+
+    <section class="card upload-grid">
+      <div>
+        <label for="metaFile">Meta Leads CSV</label>
+        <input id="metaFile" type="file" accept=".csv,text/csv" />
+      </div>
+
+      <div>
+        <label for="ghlFile">GHL / HighLevel CSV</label>
+        <input id="ghlFile" type="file" accept=".csv,text/csv" />
+      </div>
+    </section>
+
+    <section class="card settings">
+      <div>
+        <label for="nameThreshold">Name mismatch threshold: <span id="thresholdValue">70</span>%</label>
+        <input id="nameThreshold" type="range" min="50" max="100" step="5" value="70" />
+        <p class="help">70% is a good default. The tool also accepts clear same-person formats like Maria Garcia vs Maria G.</p>
+      </div>
+
+      <button id="runButton" class="primary" disabled>Run Match</button>
+    </section>
+
+    <section id="status" class="status"></section>
+
+    <section id="mappingSection" class="card hidden">
+      <h2>Auto Mapping Used</h2>
+      <div class="table-wrap">
+        <table id="mappingTable"></table>
+      </div>
+      <details>
+        <summary>Override auto mapping if needed</summary>
+        <div id="overrideSection" class="override-grid"></div>
+        <button id="applyOverrideButton" class="secondary">Apply Override & Re-run</button>
+      </details>
+    </section>
+
+    <section id="resultsSection" class="hidden">
+      <div class="metric-grid">
+        <div class="metric">
+          <span class="metric-label">Meta leads uploaded</span>
+          <strong id="totalMeta">0</strong>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Needs manual review</span>
+          <strong id="totalReview">0</strong>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Matched OK</span>
+          <strong id="totalMatched">0</strong>
+        </div>
+      </div>
+
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <h2>Leads Needing Manual Review</h2>
+            <p class="help">These are the leads you should manually check in HL.</p>
+          </div>
+          <div class="button-row">
+            <button id="downloadReviewButton" class="primary">Download Manual Review CSV</button>
+            <button id="downloadFullButton" class="secondary">Download Full Report CSV</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="reviewTable"></table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
